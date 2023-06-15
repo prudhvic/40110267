@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import TrainPage from './components/TrainPage'
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TrainDetail from './components/TrainDetail';
+import NavBar from './components/NavBar';
 function App() {
   let [trains, setTrains] = useState([])
   let fetchTrains = async () => {
@@ -15,7 +18,14 @@ function App() {
   }, [])
   return (
     <>
-      <TrainPage trains={trains} />
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<TrainPage trains={trains} />} />
+          <Route path="/trains/:trainId" element={<TrainDetail />} />
+        </Routes>
+      </Router>
+
     </>
   )
 }
